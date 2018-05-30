@@ -15,6 +15,9 @@ public:
     explicit x_sql(QWidget *parent = 0);
     ~x_sql();
 
+private slots:
+    void on_pushButton_2_clicked();
+
 private:
     Ui::x_sql *ui;
 };

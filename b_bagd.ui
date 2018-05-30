@@ -195,7 +195,7 @@
           <item>
            <widget class="QPushButton" name="pushButton_6">
             <property name="text">
-             <string>刷新</string>
+             <string>保存</string>
             </property>
            </widget>
           </item>

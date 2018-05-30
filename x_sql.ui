@@ -89,7 +89,7 @@
           <item row="4" column="3">
            <widget class="QLineEdit" name="lineEdit_5"/>
           </item>
-          <item row="6" column="3">
+          <item row="7" column="3">
            <spacer name="verticalSpacer">
             <property name="orientation">
              <enum>Qt::Vertical</enum>
@@ -127,6 +127,13 @@
               <string>Windows 验证</string>
              </property>
             </item>
+           </widget>
+          </item>
+          <item row="6" column="3">
+           <widget class="QLabel" name="label_6">
+            <property name="text">
+             <string>*不支持中文</string>
+            </property>
            </widget>
           </item>
          </layout>

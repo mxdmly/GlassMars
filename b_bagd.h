@@ -2,6 +2,8 @@
 #define B_BAGD_H
 
 #include <QDockWidget>
+#include <QKeyEvent>
+#include <QDebug>
 
 namespace Ui {
 class b_bagd;
@@ -20,6 +22,7 @@ private slots:
 
 private:
     Ui::b_bagd *ui;
+    void keyPressEvent(QKeyEvent *event);
 };
 
 #endif // B_BAGD_H
