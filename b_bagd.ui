@@ -16,7 +16,7 @@
   <widget class="QWidget" name="dockWidgetContents">
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
-     <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,99">
+     <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,0">
       <item>
        <layout class="QVBoxLayout" name="verticalLayout" stretch="3,0,0,0,0,6,0,0,1">
         <item>
@@ -39,14 +39,14 @@
         <item>
          <widget class="QPushButton" name="pushButton_3">
           <property name="text">
-           <string>备用</string>
+           <string>导出未归档病历</string>
           </property>
          </widget>
         </item>
         <item>
          <widget class="QPushButton" name="pushButton_4">
           <property name="text">
-           <string>备用</string>
+           <string>导出已回收病历</string>
           </property>
          </widget>
         </item>
@@ -86,7 +86,7 @@
        </layout>
       </item>
       <item>
-       <layout class="QVBoxLayout" name="verticalLayout_2" stretch="1,9">
+       <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0">
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
@@ -195,14 +195,55 @@
           <item>
            <widget class="QPushButton" name="pushButton_6">
             <property name="text">
-             <string>刷新</string>
+             <string>保存</string>
             </property>
            </widget>
           </item>
          </layout>
         </item>
         <item>
-         <widget class="QTableWidget" name="tableWidget"/>
+         <widget class="QTableWidget" name="tableWidget">
+          <column>
+           <property name="text">
+            <string>ID</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>住院号</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>姓名</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>出院日期</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>科室</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>主管医生</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>时效</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>病案回收日期</string>
+           </property>
+          </column>
+         </widget>
         </item>
        </layout>
       </item>
