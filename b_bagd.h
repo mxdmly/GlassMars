@@ -1,9 +1,8 @@
 #ifndef B_BAGD_H
-#define B_BAGD_H
-
 #include <QDockWidget>
 #include <QKeyEvent>
 #include <QDebug>
+#define B_BAGD_H
 
 namespace Ui {
 class b_bagd;

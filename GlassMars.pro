@@ -30,14 +30,16 @@ SOURCES += \
     b_bagd.cpp \
     x_net.cpp \
     x_sql.cpp \
-    x_sql_tool.cpp
+    x_sql_tool.cpp \
+    x_file_tool.cpp
 
 HEADERS += \
         mainwindow.h \
     b_bagd.h \
     x_net.h \
     x_sql.h \
-    x_sql_tool.h
+    x_sql_tool.h \
+    x_file_tool.h
 
 FORMS += \
         mainwindow.ui \

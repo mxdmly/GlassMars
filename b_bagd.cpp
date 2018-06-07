@@ -1,14 +1,15 @@
 #include "b_bagd.h"
 #include "ui_b_bagd.h"
 #include <x_sql_tool.h>
+#include <x_file_tool.h>
 
 using namespace std;
 
 x_sql_tool *xst;
 QString sDay_str, eDay_str, ks_str, name_str, zyh_str, recTime_str;//出院日期2个，科室，姓名，住院号，回收时间
-QString xsql_str;//用于改变查询方式
+QString xsql_str, ysql_str;//用于改变查询方式，改变插入或删除
 int xsql_i;//用于改变查询列数
-bool isSaveOrPrint_b;//true是保存，false是导出Excel
+bool isSaveOrPrint_b, isInsOrDel_b;//true是保存，false是导出Excel；true是插入，false是删除
 QSqlQuery w_sq;//储存查询数据库后返回的结果
 
 b_bagd::b_bagd(QWidget *parent) :
@@ -45,7 +46,6 @@ void b_bagd::on_pushButton_5_clicked()//查询
     name_str = ui->lineEdit->text();
     zyh_str = ui->lineEdit_2->text();
     recTime_str = QDateTime(ui->calendarWidget->selectedDate(), QTime().currentTime()).toString("yyyy-MM-dd HH:mm:ss");
-    qDebug() << ks_str << "  " << sDay_str << "  " << recTime_str;
 
     if(xst->ifIni_b)xst->iniDB();//初始化数据库工具
     sql_str = xsql_str;//改变查询方式
@@ -54,14 +54,12 @@ void b_bagd::on_pushButton_5_clicked()//查询
     }
     sql_str.append("DischargeDT >= ").append("\'").append(sDay_str).append("\'").append(" AND ");
     sql_str.append("DischargeDT <= ").append("\'").append(eDay_str).append(" 23:59:59").append("\' ");
-    qDebug() << name_str.length() << " asdasdasdsa " << zyh_str.length();
     if(name_str.length() > 0 && name_str.length() <= 10){
         sql_str.append("AND Name = ").append("\'").append(name_str).append("\' ");
     }
     if (zyh_str.length() > 0 && zyh_str.length() <= 10) {
         sql_str.append("AND CaseNo = ").append("\'").append(zyh_str).append("\'");
     }
-    qDebug() << sql_str;
     w_sq = xst->getData(sql_str);
     ui->tableWidget->setRowCount(w_sq.numRowsAffected() + 1);
     while (w_sq.next()) {
@@ -81,7 +79,7 @@ void b_bagd::on_pushButton_5_clicked()//查询
     ui->tableWidget->setItem(row_i, 1, new QTableWidgetItem("以下没有数据..."));
 
     ui->tableWidget->resizeColumnsToContents(); //设置自动列宽，setColumnWidth(3,200)设置固定列宽
-    ui->tableWidget->horizontalHeader()->setStretchLastSection(true);
+    ui->tableWidget->horizontalHeader()->setStretchLastSection(true);//拉伸
 
     if(isSaveOrPrint_b){
         ui->tableWidget->setEditTriggers(QAbstractItemView::DoubleClicked);
@@ -93,9 +91,8 @@ void b_bagd::on_pushButton_5_clicked()//查询
 void b_bagd::keyPressEvent(QKeyEvent *event){
     int row_i, dayDeff_i; //当前选择的行数，日期时效
     row_i = ui->tableWidget->currentRow();
-    if(row_i > -1 && NULL != ui->tableWidget->item(row_i, 3)){ //判断是否正确选择了一行
+    if(isSaveOrPrint_b && row_i > -1 && NULL != ui->tableWidget->item(row_i, 3)){ //判断是否打印模式，判断是否正确选择了一行
         if(event->key() == Qt::Key_Enter || event->key() == Qt::Key_Return){ //写入日期，自动生成时效数字
-            qDebug() << "asd" << row_i;
             ui->tableWidget->setItem(row_i, 7, new QTableWidgetItem(recTime_str));
             dayDeff_i = QDateTime::fromString(ui->tableWidget->item(row_i, 3)->text(), "yyyy-MM-dd HH:mm:ss").daysTo(QDateTime::fromString(recTime_str, "yyyy-MM-dd HH:mm:ss"));
             ui->tableWidget->setItem(row_i, 6, new QTableWidgetItem(QString::number(dayDeff_i, 10)));
@@ -110,50 +107,85 @@ void b_bagd::on_pushButton_6_clicked() //保存或导出
 {
     if(isSaveOrPrint_b){//判断是保存还是导出
         QString sql_str;
-        qDebug() << "sadasdasd" << ui->tableWidget->rowCount(); //返回表格中行数总和
-        sql_str = "INSERT INTO nhis.dbo._b_bagd_date(InVisitId, Timeliness, RecTime) VALUES ";
         if(xst->ifIni_b)xst->iniDB();//初始化数据库工具
+        sql_str = ysql_str;//更改操作方式
 
         QRegExp int_qre("[0-9]*"); //sql安全性检测
-        for (int i = 0; i < ui->tableWidget->rowCount(); i++) {
-            if(NULL != ui->tableWidget->item(i, 7) && NULL != ui->tableWidget->item(i, 6)){
-                if(! int_qre.exactMatch(ui->tableWidget->item(i, 6)->text())){
-                    xst->sendMsg(QString("\u7b2c").append(QString::number(i+1, 10)).append("\u884c\u65f6\u6548\u51fa\u9519")); //第i行时效出错
-                    return;
+        if(isInsOrDel_b){ //插入或删除
+            int temp_i = ui->tableWidget->rowCount() - 1;//忽略最后一行空行
+            int i;
+            for (i = 0; i < temp_i; i++) {
+                if(NULL != ui->tableWidget->item(i, 7) && NULL != ui->tableWidget->item(i, 6)){
+                    if(! int_qre.exactMatch(ui->tableWidget->item(i, 6)->text())){
+                        xst->sendMsg(QString::fromLocal8Bit("\u7b2c").append(QString::number(i+1, 10)).append(QString::fromLocal8Bit("\u884c\u65f6\u6548\u51fa\u9519"))); //第i行时效出错
+                        return;
+                    }
+                    if(! QDateTime().fromString(ui->tableWidget->item(i, 7)->text(), "yyyy-MM-dd HH:mm:ss").isValid()){
+                        xst->sendMsg(QString::fromLocal8Bit("\u7b2c").append(QString::number(i+1, 10)).append(QString::fromLocal8Bit("\u884c\u65e5\u671f\u683c\u5f0f\u51fa\u9519"))); //第i行日期格式出错
+                        return;
+                    }
+                    sql_str.append("(").append(ui->tableWidget->item(i, 0)->text()).append(",").append(ui->tableWidget->item(i, 6)->text()).append(",\'").append(ui->tableWidget->item(i, 7)->text()).append("\'),");
                 }
-                if(! QDateTime().fromString(ui->tableWidget->item(i, 7)->text(), "yyyy-MM-dd HH:mm:ss").isValid()){
-                    xst->sendMsg(QString("\u7b2c").append(QString::number(i+1, 10)).append("\u884c\u65e5\u671f\u683c\u5f0f\u51fa\u9519")); //第i行日期格式出错
-                    return;
-                }
-                if(! int_qre.exactMatch(ui->tableWidget->item(i, 0)->text())){
-                    xst->sendMsg(QString("\u7b2c").append(QString::number(i+1, 10)).append("\u884c\u0049\u0044\u51fa\u9519")); //第i行ID出错
-                    return;
-                }
-                sql_str.append("(").append(ui->tableWidget->item(i, 0)->text()).append(",").append(ui->tableWidget->item(i, 6)->text()).append(",\'").append(ui->tableWidget->item(i, 7)->text()).append("\'),");
             }
+            if(i == 0){
+                xst->sendMsg(QString::fromLocal8Bit("\u6ca1\u6709\u9009\u62e9\u4efb\u4f55\u4e00\u884c"));//没有选择任何一行
+                return;
+            }
+            sql_str = sql_str.left(sql_str.length() - 1);//删除最后的逗号
+        }else {
+            sql_str.append("(");
+            int temp_i = ui->tableWidget->rowCount() - 1;//忽略最后一行空行
+            int i;
+            for (i = 0; i < temp_i; i++) {
+                if((NULL == ui->tableWidget->item(i, 7) || NULL == ui->tableWidget->item(i, 6) )&& NULL != ui->tableWidget->item(i, 0)){
+                    sql_str.append(ui->tableWidget->item(i, 0)->text()).append(",");
+                }
+            }
+            if(i == 0){
+                xst->sendMsg(QString::fromLocal8Bit("\u6ca1\u6709\u9009\u62e9\u4efb\u4f55\u4e00\u884c"));//没有选择任何一行
+                return;
+            }
+            sql_str = sql_str.left(sql_str.length() - 1);//删除最后的逗号
+            sql_str.append(")");
         }
-        sql_str = sql_str.left(sql_str.length() - 1);
+        qDebug() << sql_str;
         xst->saveData(sql_str);
         on_pushButton_5_clicked();
     }else {
         //Export Excel
+        x_file_tool *xft;
+        xft = new x_file_tool(this);
+        qDebug() << xft->filePath_str;
+        delete xft;
     }
 }
 
 void b_bagd::on_pushButton_clicked() //未归档
 {
     isSaveOrPrint_b = true;
+    isInsOrDel_b = true;
     ui->pushButton_6->setText("保存");//保存
     xsql_i = 6;
     xsql_str = "SELECT * FROM nhis.dbo.b_bagd_w WHERE ";
+    ysql_str = "INSERT INTO nhis.dbo._b_bagd_date(InVisitId, Timeliness, RecTime) VALUES ";
+    ui->pushButton->setEnabled(false);
+    ui->pushButton_2->setEnabled(true);
+    ui->pushButton_3->setEnabled(true);
+    ui->pushButton_4->setEnabled(true);
 }
 
 void b_bagd::on_pushButton_2_clicked() //已回收
 {
     isSaveOrPrint_b = true;
+    isInsOrDel_b = false;
     ui->pushButton_6->setText("保存");//保存
     xsql_i = 7;
     xsql_str = "SELECT * FROM nhis.dbo.b_bagd_y WHERE ";
+    ysql_str = "DELETE FROM nhis.dbo._b_bagd_date WHERE InVisitId IN ";
+    ui->pushButton->setEnabled(true);
+    ui->pushButton_2->setEnabled(false);
+    ui->pushButton_3->setEnabled(true);
+    ui->pushButton_4->setEnabled(true);
 }
 
 void b_bagd::on_pushButton_3_clicked()
@@ -162,6 +194,10 @@ void b_bagd::on_pushButton_3_clicked()
     ui->pushButton_6->setText("导出");//导出
     xsql_i = 6;
     xsql_str = "SELECT * FROM nhis.dbo.b_bagd_w WHERE ";
+    ui->pushButton->setEnabled(true);
+    ui->pushButton_2->setEnabled(true);
+    ui->pushButton_3->setEnabled(false);
+    ui->pushButton_4->setEnabled(true);
 }
 
 void b_bagd::on_pushButton_4_clicked()
@@ -170,4 +206,8 @@ void b_bagd::on_pushButton_4_clicked()
     ui->pushButton_6->setText("导出");//导出
     xsql_i = 7;
     xsql_str = "SELECT * FROM nhis.dbo.b_bagd_y WHERE ";
+    ui->pushButton->setEnabled(true);
+    ui->pushButton_2->setEnabled(true);
+    ui->pushButton_3->setEnabled(true);
+    ui->pushButton_4->setEnabled(false);
 }
