@@ -2,6 +2,7 @@
 #include <QDockWidget>
 #include <QKeyEvent>
 #include <QDebug>
+#include <QTextEdit>
 #define B_BAGD_H
 
 namespace Ui {

@@ -9,7 +9,7 @@ x_sql_tool *xst;
 QString sDay_str, eDay_str, ks_str, name_str, zyh_str, recTime_str;//出院日期2个，科室，姓名，住院号，回收时间
 QString xsql_str, ysql_str;//用于改变查询方式，改变插入或删除
 int xsql_i;//用于改变查询列数
-bool isSaveOrPrint_b, isInsOrDel_b;//true是保存，false是导出Excel；true是插入，false是删除
+bool isSaveOrExport_b, isInsOrDel_b;//true是保存，false是导出Excel；true是插入，false是删除
 QSqlQuery w_sq;//储存查询数据库后返回的结果
 
 b_bagd::b_bagd(QWidget *parent) :
@@ -81,7 +81,7 @@ void b_bagd::on_pushButton_5_clicked()//查询
     ui->tableWidget->resizeColumnsToContents(); //设置自动列宽，setColumnWidth(3,200)设置固定列宽
     ui->tableWidget->horizontalHeader()->setStretchLastSection(true);//拉伸
 
-    if(isSaveOrPrint_b){
+    if(isSaveOrExport_b){
         ui->tableWidget->setEditTriggers(QAbstractItemView::DoubleClicked);
     }else {
         ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
@@ -91,7 +91,7 @@ void b_bagd::on_pushButton_5_clicked()//查询
 void b_bagd::keyPressEvent(QKeyEvent *event){
     int row_i, dayDeff_i; //当前选择的行数，日期时效
     row_i = ui->tableWidget->currentRow();
-    if(isSaveOrPrint_b && row_i > -1 && NULL != ui->tableWidget->item(row_i, 3)){ //判断是否打印模式，判断是否正确选择了一行
+    if(isSaveOrExport_b && row_i > -1 && NULL != ui->tableWidget->item(row_i, 3)){ //判断是否打印模式，判断是否正确选择了一行
         if(event->key() == Qt::Key_Enter || event->key() == Qt::Key_Return){ //写入日期，自动生成时效数字
             ui->tableWidget->setItem(row_i, 7, new QTableWidgetItem(recTime_str));
             dayDeff_i = QDateTime::fromString(ui->tableWidget->item(row_i, 3)->text(), "yyyy-MM-dd HH:mm:ss").daysTo(QDateTime::fromString(recTime_str, "yyyy-MM-dd HH:mm:ss"));
@@ -105,7 +105,7 @@ void b_bagd::keyPressEvent(QKeyEvent *event){
 
 void b_bagd::on_pushButton_6_clicked() //保存或导出
 {
-    if(isSaveOrPrint_b){//判断是保存还是导出
+    if(isSaveOrExport_b){//判断是保存还是导出
         QString sql_str;
         if(xst->ifIni_b)xst->iniDB();//初始化数据库工具
         sql_str = ysql_str;//更改操作方式
@@ -153,16 +153,40 @@ void b_bagd::on_pushButton_6_clicked() //保存或导出
         on_pushButton_5_clicked();
     }else {
         //Export Excel
+        int row_i = ui->tableWidget->rowCount() - 1;//总行数
+        int col_i = ui->tableWidget->columnCount();//总列数
+
+        QList<QString> l_l;
+        QString temp_str = "";
+        for (int i = 0; i < col_i; i++) {
+            temp_str.append(ui->tableWidget->horizontalHeaderItem(i)->text()).append("\t");
+        }
+        l_l.push_back(temp_str);
+        for (int i = 0; i < row_i; i++) {
+            temp_str = "";
+            for (int j = 0; j < col_i; j++) {
+                temp_str.append(ui->tableWidget->item(i, j)->text()).append("\t");
+            }
+            l_l.push_back(temp_str);
+        }
+        QTextEdit date_te;
+        for (int i = 0; i < l_l.size(); i++) {
+            date_te.append(l_l.at(i));
+        }
+
         x_file_tool *xft;
-        xft = new x_file_tool(this);
+        xft = new x_file_tool();
+        qDebug() << xft->setPath("");
+        xft->setPath(this, QString("").append(QDate::currentDate().toString("yyyy-MM-dd")).append(".xls"));
         qDebug() << xft->filePath_str;
+        xft->writeFile(date_te.document()->toPlainText());
         delete xft;
     }
 }
 
 void b_bagd::on_pushButton_clicked() //未归档
 {
-    isSaveOrPrint_b = true;
+    isSaveOrExport_b = true;
     isInsOrDel_b = true;
     ui->pushButton_6->setText("保存");//保存
     xsql_i = 6;
@@ -176,7 +200,7 @@ void b_bagd::on_pushButton_clicked() //未归档
 
 void b_bagd::on_pushButton_2_clicked() //已回收
 {
-    isSaveOrPrint_b = true;
+    isSaveOrExport_b = true;
     isInsOrDel_b = false;
     ui->pushButton_6->setText("保存");//保存
     xsql_i = 7;
@@ -190,7 +214,7 @@ void b_bagd::on_pushButton_2_clicked() //已回收
 
 void b_bagd::on_pushButton_3_clicked()
 {
-    isSaveOrPrint_b = false;
+    isSaveOrExport_b = false;
     ui->pushButton_6->setText("导出");//导出
     xsql_i = 6;
     xsql_str = "SELECT * FROM nhis.dbo.b_bagd_w WHERE ";
@@ -202,7 +226,7 @@ void b_bagd::on_pushButton_3_clicked()
 
 void b_bagd::on_pushButton_4_clicked()
 {
-    isSaveOrPrint_b = false;
+    isSaveOrExport_b = false;
     ui->pushButton_6->setText("导出");//导出
     xsql_i = 7;
     xsql_str = "SELECT * FROM nhis.dbo.b_bagd_y WHERE ";
