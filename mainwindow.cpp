@@ -53,3 +53,8 @@ void MainWindow::on_action_12_triggered() //数据源
     }
     ui->statusBar->clearMessage();
 }
+
+void MainWindow::on_action_13_triggered() //出院小结上传
+{
+    //dosomething
+}

@@ -37,6 +37,7 @@
     <property name="title">
      <string>  病案室  </string>
     </property>
+    <addaction name="action_13"/>
     <addaction name="action_6"/>
     <addaction name="action_7"/>
    </widget>
@@ -125,6 +126,11 @@
   <action name="action_12">
    <property name="text">
     <string>数据源</string>
+   </property>
+  </action>
+  <action name="action_13">
+   <property name="text">
+    <string>出院小结上传</string>
    </property>
   </action>
  </widget>

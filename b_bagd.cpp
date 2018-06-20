@@ -9,7 +9,7 @@ x_sql_tool *xst;
 QString sDay_str, eDay_str, ks_str, name_str, zyh_str, recTime_str;//出院日期2个，科室，姓名，住院号，回收时间
 QString xsql_str, ysql_str;//用于改变查询方式，改变插入或删除
 int xsql_i;//用于改变查询列数
-bool isSaveOrExport_b, isInsOrDel_b;//true是保存，false是导出Excel；true是插入，false是删除
+bool isSaveOrExport_b, isInsOrDel_b, isExist_b;//true是保存，false是导出Excel；true是插入，false是删除；true是存在归档记录，false是未归档
 QSqlQuery w_sq;//储存查询数据库后返回的结果
 
 b_bagd::b_bagd(QWidget *parent) :
@@ -20,7 +20,7 @@ b_bagd::b_bagd(QWidget *parent) :
     ui->tableWidget->resizeColumnsToContents();//设置自动列宽，setColumnWidth(3,200)设置固定列宽
     ui->tableWidget->setSelectionMode(QAbstractItemView::SingleSelection);//只能选中单个
 
-    ui->dateEdit->setDate(QDate::currentDate().addDays(-30));
+    ui->dateEdit->setDate(QDate::currentDate().addDays(-31));
     ui->dateEdit_2->setDate(QDate::currentDate());
 
     xst = new x_sql_tool();
@@ -109,11 +109,12 @@ void b_bagd::on_pushButton_6_clicked() //保存或导出
         QString sql_str;
         if(xst->ifIni_b)xst->iniDB();//初始化数据库工具
         sql_str = ysql_str;//更改操作方式
+        int j = 0;
 
         QRegExp int_qre("[0-9]*"); //sql安全性检测
         if(isInsOrDel_b){ //插入或删除
             int temp_i = ui->tableWidget->rowCount() - 1;//忽略最后一行空行
-            int i;
+            int i; //j是记录有多少条数据需要更改
             for (i = 0; i < temp_i; i++) {
                 if(NULL != ui->tableWidget->item(i, 7) && NULL != ui->tableWidget->item(i, 6)){
                     if(! int_qre.exactMatch(ui->tableWidget->item(i, 6)->text())){
@@ -125,9 +126,10 @@ void b_bagd::on_pushButton_6_clicked() //保存或导出
                         return;
                     }
                     sql_str.append("(").append(ui->tableWidget->item(i, 0)->text()).append(",").append(ui->tableWidget->item(i, 6)->text()).append(",\'").append(ui->tableWidget->item(i, 7)->text()).append("\'),");
+                    j++;
                 }
             }
-            if(i == 0){
+            if(j == 0){
                 xst->sendMsg(QString::fromLocal8Bit("\u6ca1\u6709\u9009\u62e9\u4efb\u4f55\u4e00\u884c"));//没有选择任何一行
                 return;
             }
@@ -135,13 +137,14 @@ void b_bagd::on_pushButton_6_clicked() //保存或导出
         }else {
             sql_str.append("(");
             int temp_i = ui->tableWidget->rowCount() - 1;//忽略最后一行空行
-            int i;
+            int i; //j是记录有多少条数据需要更改
             for (i = 0; i < temp_i; i++) {
                 if((NULL == ui->tableWidget->item(i, 7) || NULL == ui->tableWidget->item(i, 6) )&& NULL != ui->tableWidget->item(i, 0)){
                     sql_str.append(ui->tableWidget->item(i, 0)->text()).append(",");
+                    j++;
                 }
             }
-            if(i == 0){
+            if(j == 0){
                 xst->sendMsg(QString::fromLocal8Bit("\u6ca1\u6709\u9009\u62e9\u4efb\u4f55\u4e00\u884c"));//没有选择任何一行
                 return;
             }
@@ -150,11 +153,13 @@ void b_bagd::on_pushButton_6_clicked() //保存或导出
         }
         qDebug() << sql_str;
         xst->saveData(sql_str);
+        xst->sendMsg(QString::fromLocal8Bit("\u66f4\u6539\u4e86").append(QString::number(j, 10).append(QString::fromLocal8Bit("\u884c"))));//更改了j行
         on_pushButton_5_clicked();
     }else {
         //Export Excel
         int row_i = ui->tableWidget->rowCount() - 1;//总行数
         int col_i = ui->tableWidget->columnCount();//总列数
+        if(! isExist_b)col_i--; //判断是否点击了已归档或未归档记录，因为导出未归档记录会有NULL的Item
 
         QList<QString> l_l;
         QString temp_str = "";
@@ -196,6 +201,7 @@ void b_bagd::on_pushButton_clicked() //未归档
     ui->pushButton_2->setEnabled(true);
     ui->pushButton_3->setEnabled(true);
     ui->pushButton_4->setEnabled(true);
+    ui->tableWidget->clearContents();
 }
 
 void b_bagd::on_pushButton_2_clicked() //已回收
@@ -210,11 +216,13 @@ void b_bagd::on_pushButton_2_clicked() //已回收
     ui->pushButton_2->setEnabled(false);
     ui->pushButton_3->setEnabled(true);
     ui->pushButton_4->setEnabled(true);
+    ui->tableWidget->clearContents();
 }
 
 void b_bagd::on_pushButton_3_clicked()
 {
     isSaveOrExport_b = false;
+    isExist_b = true;
     ui->pushButton_6->setText("导出");//导出
     xsql_i = 6;
     xsql_str = "SELECT * FROM nhis.dbo.b_bagd_w WHERE ";
@@ -222,11 +230,13 @@ void b_bagd::on_pushButton_3_clicked()
     ui->pushButton_2->setEnabled(true);
     ui->pushButton_3->setEnabled(false);
     ui->pushButton_4->setEnabled(true);
+    ui->tableWidget->clearContents();
 }
 
 void b_bagd::on_pushButton_4_clicked()
 {
     isSaveOrExport_b = false;
+    isExist_b = false;
     ui->pushButton_6->setText("导出");//导出
     xsql_i = 7;
     xsql_str = "SELECT * FROM nhis.dbo.b_bagd_y WHERE ";
@@ -234,4 +244,5 @@ void b_bagd::on_pushButton_4_clicked()
     ui->pushButton_2->setEnabled(true);
     ui->pushButton_3->setEnabled(true);
     ui->pushButton_4->setEnabled(false);
+    ui->tableWidget->clearContents();
 }

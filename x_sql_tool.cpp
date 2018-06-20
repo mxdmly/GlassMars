@@ -15,7 +15,7 @@ x_sql_tool::~x_sql_tool()
     }
     catch (const std::exception&)
     {
-        sendMsg("Error_unDll");
+        sendMsg("Close database error");
     }
 }
 
@@ -30,7 +30,7 @@ bool x_sql_tool::saveData(QString q_str){ //重要操作使用
     QSqlQuery qDate_sq(dbEtone_qdb);
     isSuccess_b = qDate_sq.exec(q_str);
     if(isSuccess_b){
-        sendMsg("成功");
+        //sendMsg("成功");
     }else {
         sendMsg("失败 \n" + qDate_sq.lastError().text());
         qDebug() << q_str;

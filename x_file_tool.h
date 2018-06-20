@@ -20,7 +20,7 @@ public:
     bool writeFile(QString fileName_str, QObject data_obj);
     void sendMsg(QString str);
 
-private:
+//private:
     QString filePath_str;
 };
 

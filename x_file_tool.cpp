@@ -60,11 +60,13 @@ bool x_file_tool::writeFile(QString fileName_str, QObject data_obj){//写入其�
             if(! d.exists()){
                 d.mkpath(filePath_str);
             }
-            isOpen_b = f.open(QFile::WriteOnly | QIODevice::Text);
+            isOpen_b = f.open(QFile::WriteOnly | QIODevice::WriteOnly);
             if(isOpen_b){
-                QTextStream t(&f);
-                t.setCodec("UTF-8");
-                t<<data_obj;
+                QDataStream write_qds(&f);
+                write_qds.setVersion(QDataStream::Qt_4_8);
+                write_qds << data_obj;
+                QByteArray a;
+
             }
             f.close();
         } catch (const std::exception&) {
