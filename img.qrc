@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/png">
+        <file>img/ui_x_sql_listitem_x.png</file>
+        <file>img/ui_x_sql_listitem_xh.png</file>
+        <file>img/ui_x_sql_listitem_xp.png</file>
+    </qresource>
+</RCC>
