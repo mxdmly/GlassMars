@@ -15,8 +15,18 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+    void deleteP();
+
 private slots:
     void on_action_7_triggered();
+
+    void on_action_12_triggered();
+
+    void on_action_13_triggered();
+
+    void on_action_14_triggered();
+
+    void on_action_15_triggered();
 
 private:
     Ui::MainWindow *ui;
