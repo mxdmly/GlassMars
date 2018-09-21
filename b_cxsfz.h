@@ -1,4 +1,5 @@
 #ifndef B_CXSFZ_H
+#include <x_sql_tool.h>
 #define B_CXSFZ_H
 
 #include <QDialog>
@@ -14,6 +15,7 @@ class b_cxsfz : public QDialog
 public:
     explicit b_cxsfz(QWidget *parent = 0);
     ~b_cxsfz();
+    x_sql_tool *xst1;
 
 private slots:
     void on_pushButton_clicked();

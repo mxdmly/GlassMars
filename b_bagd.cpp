@@ -1,11 +1,9 @@
 #include "b_bagd.h"
 #include "ui_b_bagd.h"
-#include <x_sql_tool.h>
 #include <x_file_tool.h>
 
 using namespace std;
 
-x_sql_tool *xst;
 QString sDay_str, eDay_str, ks_str, name_str, zyh_str, recTime_str;//出院日期2个，科室，姓名，住院号，回收时间
 QString xsql_str, ysql_str;//用于改变查询方式，改变插入或删除
 int xsql_i;//用于改变查询列数
@@ -23,15 +21,12 @@ b_bagd::b_bagd(QWidget *parent) :
     ui->dateEdit->setDate(QDate::currentDate().addDays(-31));
     ui->dateEdit_2->setDate(QDate::currentDate());
 
-    xst = new x_sql_tool();
     on_pushButton_clicked();
 }
 
 b_bagd::~b_bagd()
 {
     w_sq.clear();//不添加这行程序会死掉
-    if(xst != NULL)delete xst;
-    xst = NULL;
     delete ui;
 }
 
@@ -196,6 +191,8 @@ void b_bagd::on_pushButton_clicked() //未归档
     isSaveOrExport_b = true;
     isInsOrDel_b = true;
     ui->pushButton_6->setText("保存");//保存
+    ui->lineEdit_3->setText("未归档病历");
+    ui->lineEdit_3->setStyleSheet("border: 2px solid;padding:2px;border-radius: 6px;color:red;border-color:red;");
     xsql_i = 6;
     xsql_str = "SELECT * FROM nhis.dbo.b_bagd_w WHERE ";
     ysql_str = "INSERT INTO nhis.dbo._b_bagd_date(InVisitId, Timeliness, RecTime) VALUES ";
@@ -211,6 +208,8 @@ void b_bagd::on_pushButton_2_clicked() //已回收
     isSaveOrExport_b = true;
     isInsOrDel_b = false;
     ui->pushButton_6->setText("保存");//保存
+    ui->lineEdit_3->setText("查询已回收病历");
+    ui->lineEdit_3->setStyleSheet("border: 2px solid;padding:2px;border-radius: 6px;color:#495A80;border-color:#495A80;");
     xsql_i = 7;
     xsql_str = "SELECT * FROM nhis.dbo.b_bagd_y WHERE ";
     ysql_str = "DELETE FROM nhis.dbo._b_bagd_date WHERE InVisitId IN ";
@@ -226,6 +225,8 @@ void b_bagd::on_pushButton_3_clicked()
     isSaveOrExport_b = false;
     isExist_b = true;
     ui->pushButton_6->setText("导出");//导出
+    ui->lineEdit_3->setText("导出未归档病历");
+    ui->lineEdit_3->setStyleSheet("border: 2px solid;padding:2px;border-radius: 6px;color:#CC2F69;border-color:#CC2F69;background-color:#FAFFEB;");
     xsql_i = 6;
     xsql_str = "SELECT * FROM nhis.dbo.b_bagd_w WHERE ";
     ui->pushButton->setEnabled(true);
@@ -240,6 +241,8 @@ void b_bagd::on_pushButton_4_clicked()
     isSaveOrExport_b = false;
     isExist_b = false;
     ui->pushButton_6->setText("导出");//导出
+    ui->lineEdit_3->setText("导出已回收病历");
+    ui->lineEdit_3->setStyleSheet("border: 2px solid;padding:2px;border-radius: 6px;color:#7F1874;border-color:#7F1874;background-color:#DDF0ED;");
     xsql_i = 7;
     xsql_str = "SELECT * FROM nhis.dbo.b_bagd_y WHERE ";
     ui->pushButton->setEnabled(true);

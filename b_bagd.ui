@@ -18,12 +18,28 @@
     <item row="0" column="0">
      <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,1">
       <item>
-       <layout class="QVBoxLayout" name="verticalLayout" stretch="3,0,0,0,0,6,0,0,1">
+       <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,0,0,0,6,0,0,1">
         <item>
-         <widget class="QOpenGLWidget" name="openGLWidget"/>
+         <widget class="QLineEdit" name="lineEdit_3">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
         </item>
         <item>
          <widget class="QPushButton" name="pushButton">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>50</height>
+           </size>
+          </property>
           <property name="text">
            <string>未归档病历</string>
           </property>
@@ -31,6 +47,12 @@
         </item>
         <item>
          <widget class="QPushButton" name="pushButton_2">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>50</height>
+           </size>
+          </property>
           <property name="text">
            <string>查询已回收病历</string>
           </property>
@@ -38,6 +60,12 @@
         </item>
         <item>
          <widget class="QPushButton" name="pushButton_3">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>50</height>
+           </size>
+          </property>
           <property name="text">
            <string>导出未归档病历</string>
           </property>
@@ -45,6 +73,12 @@
         </item>
         <item>
          <widget class="QPushButton" name="pushButton_4">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>50</height>
+           </size>
+          </property>
           <property name="text">
            <string>导出已回收病历</string>
           </property>
@@ -103,6 +137,12 @@
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>0</height>
+             </size>
             </property>
             <item>
              <property name="text">
@@ -179,7 +219,14 @@
            </widget>
           </item>
           <item>
-           <widget class="QLineEdit" name="lineEdit"/>
+           <widget class="QLineEdit" name="lineEdit">
+            <property name="minimumSize">
+             <size>
+              <width>80</width>
+              <height>0</height>
+             </size>
+            </property>
+           </widget>
           </item>
           <item>
            <widget class="QLabel" name="label_5">
@@ -189,7 +236,14 @@
            </widget>
           </item>
           <item>
-           <widget class="QLineEdit" name="lineEdit_2"/>
+           <widget class="QLineEdit" name="lineEdit_2">
+            <property name="minimumSize">
+             <size>
+              <width>80</width>
+              <height>0</height>
+             </size>
+            </property>
+           </widget>
           </item>
           <item>
            <widget class="QPushButton" name="pushButton_5">

@@ -3,6 +3,7 @@
 #include <QKeyEvent>
 #include <QDebug>
 #include <QTextEdit>
+#include <x_sql_tool.h>
 #define B_BAGD_H
 
 namespace Ui {
@@ -16,6 +17,7 @@ class b_bagd : public QDockWidget
 public:
     explicit b_bagd(QWidget *parent = 0);
     ~b_bagd();
+    x_sql_tool *xst;
 
 private slots:
     void on_pushButton_5_clicked();

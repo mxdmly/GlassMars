@@ -1,6 +1,5 @@
 #include "c_mzxy.h"
 #include "ui_c_mzxy.h"
-#include <x_sql_tool.h>
 #include <x_file_tool.h>
 #include <main_loading_thread.h>
 #include <main_loading.h>
@@ -8,8 +7,7 @@
 
 using namespace std;
 
-x_sql_tool *xst0;//避免重复，以出现次数作后缀
-x_file_tool *xft0;
+x_file_tool *xft0;//避免重复，以出现次数作后缀
 QSqlQuery w_0sq;//储存查询数据库后返回的结果
 main_loading *ml;
 main_loading_thread *sd;
@@ -32,7 +30,6 @@ c_mzxy::c_mzxy(QWidget *parent) :
     ui->lineEdit_2->setValidator(le2_qv);
     ui->lineEdit_3->setValidator(le2_qv);
 
-    xst0 = new x_sql_tool();
     xft0 = new x_file_tool();
 
 }
@@ -40,8 +37,6 @@ c_mzxy::c_mzxy(QWidget *parent) :
 c_mzxy::~c_mzxy()
 {
     w_0sq.clear();//不添加这行程序会死掉
-    if(xst0 != NULL)delete xst0;
-    xst0 = NULL;
     if(xft0 != NULL)delete xft0;
     xft0 = NULL;
     delete ui;

@@ -1,8 +1,6 @@
 #include "b_cxsfz.h"
 #include "ui_b_cxsfz.h"
-#include <x_sql_tool.h>
 
-x_sql_tool *xst1;
 QSqlQuery w_sq1;
 b_cxsfz::b_cxsfz(QWidget *parent) :
     QDialog(parent),
@@ -10,9 +8,7 @@ b_cxsfz::b_cxsfz(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    xst1 = new x_sql_tool();
-
-    QRegExp le_qre("[1-9]{0,20}$");
+    QRegExp le_qre("[0-9]{0,20}$");
     QValidator *le_qv = new QRegExpValidator(le_qre, this);
     ui->lineEdit->setValidator(le_qv);
 }
@@ -20,8 +16,6 @@ b_cxsfz::b_cxsfz(QWidget *parent) :
 b_cxsfz::~b_cxsfz()
 {
     w_sq1.clear();
-    if(xst1 != NULL)delete xst1;
-    xst1 = NULL;
     delete ui;
 }
 
@@ -35,5 +29,8 @@ void b_cxsfz::on_pushButton_clicked()
         w_sq1.next();
         ui->lineEdit_2->setText(w_sq1.value(1).toString());
         ui->lineEdit_3->setText(w_sq1.value(2).toString());
+    }else{
+        ui->lineEdit_2->setText("查无此人");
+        ui->lineEdit_3->setText("查无此人");
     }
 }
