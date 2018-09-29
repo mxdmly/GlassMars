@@ -100,8 +100,8 @@ void b_bagd::keyPressEvent(QKeyEvent *event){
 
 void b_bagd::on_pushButton_6_clicked() //保存或导出
 {
-    xst->sendMsg("你没有此权限");
-    return;
+    /*xst->sendMsg("你没有此权限");
+    return;*/
     if(isSaveOrExport_b){//判断是保存还是导出
         QString sql_str;
         if(xst->ifIni_b)xst->iniDB();//初始化数据库工具

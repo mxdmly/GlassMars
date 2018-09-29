@@ -1,4 +1,4 @@
-#ifndef X_SQL_H
+﻿#ifndef X_SQL_H
 #include <QJsonArray>
 #include <QJsonObject>
 #include <QJsonDocument>

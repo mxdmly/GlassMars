@@ -10,6 +10,7 @@
 
 QT       += core gui
 QT       += sql
+QT       += network
 RC_ICONS = logo.ico
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
@@ -42,7 +43,9 @@ SOURCES += \
     x_about.cpp \
     main_loading.cpp \
     main_loading_thread.cpp \
-    b_cxsfz.cpp
+    b_cxsfz.cpp \
+    x_test.cpp \
+    x_net_tool.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -56,7 +59,9 @@ HEADERS += \
     x_about.h \
     main_loading.h \
     main_loading_thread.h \
-    b_cxsfz.h
+    b_cxsfz.h \
+    x_test.h \
+    x_net_tool.h
 
 FORMS += \
         mainwindow.ui \
@@ -67,7 +72,8 @@ FORMS += \
     c_mzxy.ui \
     x_about.ui \
     main_loading.ui \
-    b_cxsfz.ui
+    b_cxsfz.ui \
+    x_test.ui
 
 RESOURCES += \
     img.qrc

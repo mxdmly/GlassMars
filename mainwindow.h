@@ -30,6 +30,10 @@ private slots:
 
     void on_action_16_triggered();
 
+    void on_action_triggered();
+
+    void on_action_11_triggered();
+
 private:
     Ui::MainWindow *ui;
 };

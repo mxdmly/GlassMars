@@ -6,6 +6,7 @@
 #include <c_mzxy.h>
 #include <x_about.h>
 #include <b_cxsfz.h>
+#include <x_test.h>
 
 using namespace std;
 
@@ -14,7 +15,9 @@ b_cxsfz *b_cxsfz_d = NULL;
 x_sql *x_sql_w = NULL;
 c_mzxy *c_mzxy_w = NULL;
 x_about *x_about_d = NULL;
-x_sql_tool *mainSqlTool_xst;
+x_sql_tool *mainSqlTool_xst = NULL;
+x_test *x_test_w = NULL;
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -108,4 +111,22 @@ void MainWindow::on_action_16_triggered()
     b_cxsfz_d = new b_cxsfz(this);
     b_cxsfz_d->show();
     b_cxsfz_d->xst1 = mainSqlTool_xst;
+}
+
+void MainWindow::on_action_triggered()
+{
+    return;
+}
+
+void MainWindow::on_action_11_triggered()//社保网络测试
+{
+    ui->statusBar->showMessage("正在打开......");
+    deleteP();
+    if(x_test_w != NULL)x_test_w->show();
+    else
+    {
+        x_test_w = new x_test(this);
+        addDockWidget(Qt::RightDockWidgetArea, x_test_w);
+    }
+    ui->statusBar->clearMessage();
 }

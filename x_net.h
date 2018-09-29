@@ -1,4 +1,7 @@
-#ifndef X_NET_H
+﻿#ifndef X_NET_H
+#include <QJsonObject>
+#include <QJsonDocument>
+#include <QTcpSocket>
 #define X_NET_H
 
 #include <QDockWidget>
