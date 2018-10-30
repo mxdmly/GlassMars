@@ -4,7 +4,14 @@
 #
 #-------------------------------------------------
 
+#win32 {
+#QMAKE_LFLAGS_WINDOWS = /SUBSYSTEM:WINDOWS,5.01
+#}
+
 QT       += core gui
+QT       += sql
+QT       += network
+RC_ICONS = logo.ico
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -26,12 +33,54 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    b_bagd.cpp
+    b_bagd.cpp \
+    x_net.cpp \
+    x_sql.cpp \
+    x_sql_tool.cpp \
+    x_file_tool.cpp \
+    ui_x_sql_listitem.cpp \
+    c_mzxy.cpp \
+    x_about.cpp \
+    main_loading.cpp \
+    main_loading_thread.cpp \
+    b_cxsfz.cpp \
+    x_test.cpp \
+    x_net_tool.cpp \
+    y_sbwljhyw.cpp \
+    x_doc.cpp \
+    y_sbwljhyw_thread.cpp
 
 HEADERS += \
         mainwindow.h \
-    b_bagd.h
+    b_bagd.h \
+    x_net.h \
+    x_sql.h \
+    x_sql_tool.h \
+    x_file_tool.h \
+    ui_x_sql_listitem.h \
+    c_mzxy.h \
+    x_about.h \
+    main_loading.h \
+    main_loading_thread.h \
+    b_cxsfz.h \
+    x_test.h \
+    x_net_tool.h \
+    y_sbwljhyw.h \
+    x_doc.h \
+    y_sbwljhyw_thread.h
 
 FORMS += \
         mainwindow.ui \
-    b_bagd.ui
+    b_bagd.ui \
+    x_net.ui \
+    x_sql.ui \
+    ui_x_sql_listitem.ui \
+    c_mzxy.ui \
+    x_about.ui \
+    main_loading.ui \
+    b_cxsfz.ui \
+    x_test.ui \
+    y_sbwljhyw.ui
+
+RESOURCES += \
+    img.qrc
