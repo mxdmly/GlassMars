@@ -1,10 +1,8 @@
-#include "x_sql.h"
+﻿#include "x_sql.h"
 #include "ui_x_sql.h"
 #include <QDebug>
-#include <x_file_tool.h>
 #include <ui_x_sql_listitem.h>
 
-x_file_tool *xft = NULL;
 int dbListNum_i = 0;
 bool isNewItem_b = true;
 int listRow_i = 0;

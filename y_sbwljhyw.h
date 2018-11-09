@@ -3,6 +3,7 @@
 #include <x_sql_tool.h>
 #include <QRegExp>
 #include <x_doc.h>
+#include <QDate>
 #define Y_SBWLJHYW_H
 
 #include <QDockWidget>
@@ -26,8 +27,13 @@ public slots:
     void on_pushButton_clicked();
     void onReadData(int su_i, QString readDate_str);
     void q1400();
-    void q1600();
+    void q1600(int category_i);
     void q1710();
+
+private slots:
+    void on_pushButton_2_clicked();
+
+    void on_lineEdit_textEdited(const QString &arg1);
 
 private:
     Ui::y_sbwljhyw *ui;

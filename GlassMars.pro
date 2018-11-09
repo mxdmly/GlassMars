@@ -48,7 +48,8 @@ SOURCES += \
     x_net_tool.cpp \
     y_sbwljhyw.cpp \
     x_doc.cpp \
-    y_sbwljhyw_thread.cpp
+    y_sbwljhyw_thread.cpp \
+    y_sbwljhyw_dialog.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -67,7 +68,8 @@ HEADERS += \
     x_net_tool.h \
     y_sbwljhyw.h \
     x_doc.h \
-    y_sbwljhyw_thread.h
+    y_sbwljhyw_thread.h \
+    y_sbwljhyw_dialog.h
 
 FORMS += \
         mainwindow.ui \
@@ -80,7 +82,8 @@ FORMS += \
     main_loading.ui \
     b_cxsfz.ui \
     x_test.ui \
-    y_sbwljhyw.ui
+    y_sbwljhyw.ui \
+    y_sbwljhyw_dialog.ui
 
 RESOURCES += \
     img.qrc

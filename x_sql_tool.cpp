@@ -1,10 +1,10 @@
-#include "x_sql_tool.h"
+﻿#include "x_sql_tool.h"
 
 using namespace std;
 
 x_sql_tool::x_sql_tool()
 {
-    isDBopen = true;
+    isDBopen = true;//这是一个开关，初始化后就关闭
     isRun = true;
 }
 

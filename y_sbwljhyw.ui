@@ -16,7 +16,7 @@
   <widget class="QWidget" name="dockWidgetContents">
    <layout class="QGridLayout" name="gridLayout_3">
     <item row="0" column="0">
-     <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0">
+     <layout class="QHBoxLayout" name="horizontalLayout" stretch="5,2">
       <item>
        <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,0">
         <item>
@@ -104,101 +104,7 @@
          </widget>
         </item>
         <item>
-         <layout class="QGridLayout" name="gridLayout" rowstretch="1,0,2,0,2">
-          <item row="4" column="0">
-           <widget class="QTextBrowser" name="textBrowser"/>
-          </item>
-          <item row="0" column="2">
-           <widget class="QPushButton" name="pushButton_2">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="text">
-             <string>办理特定病种门诊卡</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="2" rowspan="3">
-           <widget class="QListWidget" name="listWidget_2"/>
-          </item>
-          <item row="0" column="0">
-           <widget class="QPushButton" name="pushButton_3">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="text">
-             <string>办理转诊</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="2">
-           <widget class="QLabel" name="label_3">
-            <property name="text">
-             <string>办卡历史记录</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0">
-           <widget class="QListWidget" name="listWidget_3">
-            <item>
-             <property name="text">
-              <string>新建项目</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>新建项目</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>新建项目</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>新建项目</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>新建项目</string>
-             </property>
-            </item>
-           </widget>
-          </item>
-          <item row="0" column="1" rowspan="5">
-           <widget class="Line" name="line">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="label_5">
-            <property name="text">
-             <string>转诊记录</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
+         <layout class="QGridLayout" name="gridLayout" rowstretch="1,0,2,0,2,0,0">
           <item row="3" column="0">
            <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="1,1,1">
             <item>
@@ -235,6 +141,86 @@
              </spacer>
             </item>
            </layout>
+          </item>
+          <item row="0" column="1" rowspan="7">
+           <widget class="Line" name="line">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="2">
+           <widget class="QLabel" name="label_3">
+            <property name="text">
+             <string>办卡历史记录</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2">
+           <widget class="QPushButton" name="pushButton_2">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>办理特定病种门诊卡</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_5">
+            <property name="text">
+             <string>转诊记录</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QPushButton" name="pushButton_3">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>办理转诊</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QListWidget" name="listWidget_3">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="0">
+           <widget class="QTableWidget" name="tableWidget_2"/>
+          </item>
+          <item row="2" column="2" rowspan="3">
+           <widget class="QListWidget" name="listWidget_2">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>
