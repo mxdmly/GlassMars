@@ -48,7 +48,10 @@ SOURCES += \
     x_net_tool.cpp \
     y_sbwljhyw.cpp \
     x_doc.cpp \
-    y_sbwljhyw_thread.cpp
+    y_sbwljhyw_thread.cpp \
+    y_sbwljhyw_dialog.cpp \
+    y_jbylbxtdbzmzsqdjjjb.cpp \
+    y_zflcx.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -67,7 +70,10 @@ HEADERS += \
     x_net_tool.h \
     y_sbwljhyw.h \
     x_doc.h \
-    y_sbwljhyw_thread.h
+    y_sbwljhyw_thread.h \
+    y_sbwljhyw_dialog.h \
+    y_jbylbxtdbzmzsqdjjjb.h \
+    y_zflcx.h
 
 FORMS += \
         mainwindow.ui \
@@ -80,7 +86,10 @@ FORMS += \
     main_loading.ui \
     b_cxsfz.ui \
     x_test.ui \
-    y_sbwljhyw.ui
+    y_sbwljhyw.ui \
+    y_sbwljhyw_dialog.ui \
+    y_jbylbxtdbzmzsqdjjjb.ui \
+    y_zflcx.ui
 
 RESOURCES += \
     img.qrc

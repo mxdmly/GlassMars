@@ -9,6 +9,8 @@
 #include <x_test.h>
 #include <x_net_tool.h>
 #include <y_sbwljhyw.h>
+#include <y_jbylbxtdbzmzsqdjjjb.h>
+#include <y_zflcx.h>
 
 using namespace std;
 
@@ -21,13 +23,15 @@ x_sql_tool *mainSqlTool_t = NULL;
 x_test *x_test_w = NULL;
 x_net_tool *mainNetTool_t = NULL;
 y_sbwljhyw *y_sbwljhyw_w = NULL;
+y_jbylbxtdbzmzsqdjjjb *y_tm_w = NULL;
+y_zflcx *y_zflcx_w = NULL;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    setWindowTitle("肇庆市端州区人民医院信息系统(测试版 V1.1)");
+    setWindowTitle("朝及软件(测试版 V1.2)");
     //setWindowTitle(QString::fromLocal8Bit("\u8087\u5e86\u5e02\u7aef\u5dde\u533a\u4eba\u6c11\u533b\u9662\u4fe1\u606f\u7cfb\u7edf\u0028\u6d4b\u8bd5\u7248\u0029"));//肇庆市端州区人民医院信息系统(测试版)
     //QWidget* p = takeCentralWidget();//去掉MainWindow中间窗口以拉动LockWidget
     //if(p)delete p;
@@ -49,6 +53,11 @@ MainWindow::~MainWindow()
     b_bagd_w = NULL;
     if(c_mzxy_w != NULL)delete c_mzxy_w;
     c_mzxy_w = NULL;
+    if(y_tm_w != NULL)delete y_tm_w;
+    y_tm_w = NULL;
+    if(y_zflcx_w != NULL)delete y_zflcx_w;
+    y_zflcx_w = NULL;
+
     if(mainSqlTool_t != NULL)delete mainSqlTool_t;
     mainSqlTool_t = NULL;
     if(mainNetTool_t != NULL)delete mainNetTool_t;
@@ -147,6 +156,34 @@ void MainWindow::on_action_11_triggered()//社保网络测试
         addDockWidget(Qt::RightDockWidgetArea, x_test_w);
         x_test_w->xnt = mainNetTool_t;
         connect(mainNetTool_t, &x_net_tool::onReadData_sign, x_test_w, &x_test::onReadData);
+    }
+    ui->statusBar->clearMessage();
+}
+
+void MainWindow::on_action_17_triggered()//特门交接表
+{
+    ui->statusBar->showMessage("正在打开......");
+    deleteP();
+    if(y_tm_w != NULL)y_tm_w->show();
+    else
+    {
+        y_tm_w = new y_jbylbxtdbzmzsqdjjjb(this);
+        addDockWidget(Qt::RightDockWidgetArea, y_tm_w);
+        y_tm_w->xst = mainSqlTool_t;
+    }
+    ui->statusBar->clearMessage();
+}
+
+void MainWindow::on_action_18_triggered()//自费率查询
+{
+    ui->statusBar->showMessage("正在打开......");
+    deleteP();
+    if(y_zflcx_w != NULL)y_zflcx_w->show();
+    else
+    {
+        y_zflcx_w = new y_zflcx(this);
+        addDockWidget(Qt::RightDockWidgetArea, y_zflcx_w);
+        y_zflcx_w->xst = mainSqlTool_t;
     }
     ui->statusBar->clearMessage();
 }

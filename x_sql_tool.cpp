@@ -1,10 +1,10 @@
-#include "x_sql_tool.h"
+﻿#include "x_sql_tool.h"
 
 using namespace std;
 
 x_sql_tool::x_sql_tool()
 {
-    isDBopen = true;
+    isDBopen = true;//这是一个开关，初始化后就关闭
     isRun = true;
 }
 
@@ -82,6 +82,7 @@ QString x_sql_tool::openSqlFile(QString str)//打开sql文件读取文本内容
 void x_sql_tool::sendMsg(QString str)//一个方便使用的文本弹出框
 {
     QMessageBox msg;
+    msg.setWindowTitle("朝及软件 | 不止是世界500强");
     msg.setText(str);
     msg.exec();
 }

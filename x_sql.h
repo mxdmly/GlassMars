@@ -3,6 +3,7 @@
 #include <QJsonObject>
 #include <QJsonDocument>
 #include <QListWidgetItem>
+#include <x_file_tool.h>
 #define X_SQL_H
 
 #include <QDockWidget>
@@ -18,6 +19,7 @@ class x_sql : public QDockWidget
 public:
     explicit x_sql(QWidget *parent = 0);
     ~x_sql();
+    x_file_tool *xft;
 
 private slots:
     void on_pushButton_2_clicked();
