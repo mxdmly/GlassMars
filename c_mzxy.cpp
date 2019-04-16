@@ -126,7 +126,6 @@ void c_mzxy::on_pushButton_clicked()
     ui->tableWidget->setItem(row_i, 1, new QTableWidgetItem("以下没有数据..."));
     ui->tableWidget->resizeColumnsToContents(); //设置自动列宽
 
-
     //qDebug() << w_0sq.lastError();
     if(w_0sq.lastError().isValid()){
         xst0->sendMsg("查询出错！\n\n请检查输入情况，是否输入了错误的字符");

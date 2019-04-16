@@ -1,4 +1,4 @@
-#ifndef MAINWINDOW_H
+﻿#ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
 #include <QMainWindow>
@@ -33,6 +33,16 @@ private slots:
     void on_action_triggered();
 
     void on_action_11_triggered();
+
+    void on_action_17_triggered();
+
+    void on_action_18_triggered();
+
+    void on_action_19_triggered();
+
+    void on_action_20_triggered();
+
+    void on_action_21_triggered();
 
 private:
     Ui::MainWindow *ui;

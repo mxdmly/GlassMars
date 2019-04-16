@@ -1,4 +1,4 @@
-#ifndef X_FILE_TOOL_H
+﻿#ifndef X_FILE_TOOL_H
 #include <QDebug>
 #include <QFileDialog>
 #include <QFile>
@@ -21,6 +21,7 @@ public:
     QByteArray readFile(QString fileName_str);
     QByteArray readFile();
     void sendMsg(QString str);
+    QString readFileText(QString fileName_str);
 
 //private:
     QString filePath_str;

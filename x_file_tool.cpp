@@ -1,4 +1,4 @@
-#include "x_file_tool.h"
+﻿#include "x_file_tool.h"
 #include <QDebug>
 
 using namespace std;
@@ -101,7 +101,25 @@ QByteArray x_file_tool::readFile(QString fileName_str){
     return temp_qba;
 }
 
-
+QString x_file_tool::readFileText(QString fileName_str){
+    QString temp_str = NULL;
+    if(filePath_str.isEmpty() | filePath_str.isNull()){
+        sendMsg("Path is null");
+    }else{
+        QFile f(QString(filePath_str).append("\\").append(fileName_str));
+        qDebug() << "In " << QFileInfo(f).path();
+        try {
+            if(f.open(QFile::ReadOnly | QIODevice::ReadOnly)){
+                QTextStream read_qds(&f);
+                temp_str = read_qds.readAll();
+            }
+        } catch (const std::exception&) {
+            sendMsg(f.errorString());
+        }
+        f.close();
+    }
+    return temp_str;
+}
 
 void x_file_tool::sendMsg(QString str)//一个方便使用的文本弹出框
 {
