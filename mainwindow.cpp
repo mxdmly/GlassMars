@@ -14,6 +14,8 @@
 #include <w_wjzbg.h>
 #include <w_wjzbgsb.h>
 #include <c_ylxmcsdb.h>
+#include <Lemon.h>
+#include <n_tcpserver_thread.h>
 
 using namespace std;
 
@@ -31,22 +33,26 @@ y_zflcx *y_zflcx_w = NULL;
 w_wjzbg *w_wjzbg_w = NULL;
 w_wjzbgsb *w_wjzbgsb_w = NULL;
 c_ylxmcsdb *c_ylxmcsdb_w = NULL;
+n_tcpserver_thread *nth = NULL;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    setWindowTitle("朝及软件(测试版 V1.2)");
+    setWindowTitle("朝及软件(测试版 V1.4)");
     //setWindowTitle(QString::fromLocal8Bit("\u8087\u5e86\u5e02\u7aef\u5dde\u533a\u4eba\u6c11\u533b\u9662\u4fe1\u606f\u7cfb\u7edf\u0028\u6d4b\u8bd5\u7248\u0029"));//肇庆市端州区人民医院信息系统(测试版)
     //QWidget* p = takeCentralWidget();//去掉MainWindow中间窗口以拉动LockWidget
     //if(p)delete p;
     setDockNestingEnabled(true);
-
     ui->statusBar->showMessage("欢迎使用", 2000);
 
     mainSqlTool_t = new x_sql_tool();
     mainNetTool_t = new x_net_tool();
+
+    nth = new n_tcpserver_thread();
+    connect(nth, SIGNAL(n_tcpserver_thread::barMsg_sign(QString)), this, SLOT(MainWindow::barMsg_slots(QString)));
+    nth->start();
 }
 
 MainWindow::~MainWindow()
@@ -72,6 +78,10 @@ MainWindow::~MainWindow()
     mainSqlTool_t = NULL;
     if(mainNetTool_t != NULL)delete mainNetTool_t;
     mainNetTool_t = NULL;
+
+    nth->isRun = false;
+    if(nth != NULL)delete nth;
+    nth = NULL;
     delete ui;
 }
 
@@ -238,4 +248,8 @@ void MainWindow::on_action_21_triggered()//医疗项目次数对比
         c_ylxmcsdb_w->xst = mainSqlTool_t;
     }
     ui->statusBar->clearMessage();
+}
+
+void MainWindow::barMsg_slots(QString msg_str){
+    ui->statusBar->showMessage(msg_str);
 }

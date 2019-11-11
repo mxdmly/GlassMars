@@ -1,4 +1,4 @@
-#ifndef UI_X_SQL_LISTITEM_H
+﻿#ifndef UI_X_SQL_LISTITEM_H
 #include <windows.h>
 #define UI_X_SQL_LISTITEM_H
 

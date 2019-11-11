@@ -42,7 +42,7 @@
        <item row="9" column="5">
         <widget class="QLineEdit" name="lineEdit_9">
          <property name="text">
-          <string/>
+          <string>刘锦杳</string>
          </property>
         </widget>
        </item>

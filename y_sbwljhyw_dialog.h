@@ -6,6 +6,7 @@
 #include <QJsonObject>
 #include <QJsonDocument>
 #include <QDateTime>
+#include <QCloseEvent>
 #define Y_SBWLJHYW_DIALOG_H
 
 #include <QDialog>
@@ -51,6 +52,10 @@ private slots:
     void on_buttonBox_accepted();
 
     void on_pushButton_2_clicked();
+
+    void on_buttonBox_rejected();
+
+    void closeEvent(QCloseEvent *e);
 
 signals:
     void sendUploadData(QStringList uploadData_sl);

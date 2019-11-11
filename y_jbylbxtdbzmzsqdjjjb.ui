@@ -181,6 +181,11 @@
         </column>
         <column>
          <property name="text">
+          <string>身份证</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
           <string>科室</string>
          </property>
         </column>

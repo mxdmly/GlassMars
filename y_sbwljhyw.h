@@ -40,6 +40,7 @@ public slots:
     void q1600(int category_i);
     void q1710();
     void q3110(QStringList uploadData_sl);
+    void q3120(QStringList uploadData_sl);
 
     void getUploadData(QStringList uploadData_sl);
 
@@ -50,8 +51,11 @@ private slots:
 
     void on_lineEdit_returnPressed();
 
-
     void on_lineEdit_3_returnPressed();
+
+    void on_listWidget_2_customContextMenuRequested(const QPoint &pos);
+
+    void on_rightMenuClick();
 
 private:
     Ui::y_sbwljhyw *ui;
