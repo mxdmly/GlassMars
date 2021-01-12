@@ -154,17 +154,14 @@ void y_sbwljhyw_dialog::on_comboBox_2_activated(int index)
 void y_sbwljhyw_dialog::on_comboBox_activated(int index)
 {
     BZ_index_i = index;
-    QJsonArray acText_ja = acText("acText.json");
+    /*QJsonArray acText_ja = acText("acText.json");
     acText_ja;
     for (int i = 0; i < acText_ja.size(); ++i) {
         if(acText_ja.at(i).toObject().value("title").toString() == CodeName_sl.at(index)){ //用科室筛选主任
             ui->lineEdit_8->setText(acText_ja.at(i).toObject().value("head").toString());
         }
 
-    }
-
-
-
+    }*/
 
     //ui->lineEdit_5->setText(CodeValue_sl.at(index));
     //ui->lineEdit_6->setText(CodeName_sl.at(index));
