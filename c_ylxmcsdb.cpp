@@ -33,10 +33,18 @@ c_ylxmcsdb::~c_ylxmcsdb()
 
 void c_ylxmcsdb::on_pushButton_clicked()//查询
 {
+    return;
+    //int[] L1, L2;
+    //float[][] Anum;
+    QList<int> Az_str;
     QString sql_str;
     if(xst->ifIni_b)xst->iniDB();//初始化数据库工具
     sql_str = "SELECT dbo.IPPatCost.DeptId,dbo.IPPatCost.ChargeStandardId,dbo.IPPatCost.DeptNm,dbo.IPPatCost.FeeTypeNm,dbo.IPPatCost.ChargeStandardNm,Sum(dbo.IPPatCost.Quantity) FROM dbo.IPPatCost WHERE dbo.IPPatCost.ExeDt BETWEEN '2019-03-01' AND '2019-03-01' AND dbo.IPPatCost.FeeTypeId NOT IN (3,5) GROUP BY dbo.IPPatCost.DeptId,dbo.IPPatCost.ChargeStandardId,dbo.IPPatCost.DeptNm,dbo.IPPatCost.FeeTypeNm,dbo.IPPatCost.ChargeStandardNm";
     w2_sq = xst->getData(sql_str);
+    w2_sq.size();
+    while (w2_sq.next()) {
+        ;
+    }
 }
 
 

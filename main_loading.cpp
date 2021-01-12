@@ -1,4 +1,4 @@
-#include "main_loading.h"
+﻿#include "main_loading.h"
 #include "ui_main_loading.h"
 
 main_loading::main_loading(QWidget *parent) :
@@ -16,4 +16,9 @@ main_loading::~main_loading()
 
 void main_loading::updateProgressBar(int i){
     ui->progressBar->setValue(i);
+}
+
+void main_loading::updateProgressBar(int i, QString label_str){
+    ui->progressBar->setValue(i);
+    ui->label->setText(label_str);
 }

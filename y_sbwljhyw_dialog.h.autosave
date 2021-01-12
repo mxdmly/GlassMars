@@ -27,6 +27,7 @@ public:
     x_file_tool *xft;
     void setQV(QVector<QString>);
     void setXST(x_sql_tool *xst);
+    QJsonArray acText(QString fileName_str);
 
     QStringList docsssItems_sl;
     QStringList depItem_sl;

@@ -1,4 +1,4 @@
-#ifndef B_BAGD_H
+﻿#ifndef B_BAGD_H
 #include <QDockWidget>
 #include <QKeyEvent>
 #include <QDebug>
@@ -18,6 +18,7 @@ public:
     explicit b_bagd(QWidget *parent = 0);
     ~b_bagd();
     x_sql_tool *xst;
+    bool isIni_b;
 
 private slots:
     void on_pushButton_5_clicked();
