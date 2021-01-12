@@ -54,7 +54,9 @@ SOURCES += \
     y_zflcx.cpp \
     w_wjzbg.cpp \
     w_wjzbgsb.cpp \
-    c_ylxmcsdb.cpp
+    c_ylxmcsdb.cpp \
+    n_tcpserver_thread.cpp \
+    Lemon.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -79,7 +81,9 @@ HEADERS += \
     y_zflcx.h \
     w_wjzbg.h \
     w_wjzbgsb.h \
-    c_ylxmcsdb.h
+    c_ylxmcsdb.h \
+    Lemon.h \
+    n_tcpserver_thread.h
 
 FORMS += \
         mainwindow.ui \

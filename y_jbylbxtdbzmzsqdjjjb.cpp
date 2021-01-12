@@ -48,7 +48,7 @@ void y_jbylbxtdbzmzsqdjjjb::on_pushButton_clicked()//查询
     ui->tableWidget->clearContents();//清空表格中的内容(不包含表头)
     if(isIni_b){
         xst->iniDB();
-        qDebug() << xst->isDBopen;
+        //qDebug() << xst->isDBopen;
         isIni_b = false;
     }
     sql_str = xst->openSqlFile(QApplication::applicationDirPath() + "\\sql\\y_jbylbxtdbzmzsqdjjjb.sql");
@@ -89,11 +89,11 @@ void y_jbylbxtdbzmzsqdjjjb::on_pushButton_clicked()//查询
     ui->tableWidget->setRowCount(y_sq.numRowsAffected() + 1);
     QString temp_str;
     while (y_sq.next()) {
-        for (int i = 0; i < 6; ++i) {
+        for (int i = 0; i < 7; ++i) {
             ui->tableWidget->setItem(row_i, i, new QTableWidgetItem(y_sq.value(i).toString()));
         }
         temp_str = "";
-        switch (y_sq.value(6).toInt()) {
+        switch (y_sq.value(7).toInt()) {
         case 0:
             temp_str = "已上传";
             break;
@@ -109,8 +109,8 @@ void y_jbylbxtdbzmzsqdjjjb::on_pushButton_clicked()//查询
         default:
             break;
         }
-        ui->tableWidget->setItem(row_i, 6, new QTableWidgetItem(temp_str));
-        ui->tableWidget->setItem(row_i, 7, new QTableWidgetItem(y_sq.value(7).toDateTime().toString("yyyy-MM-dd hh:ss:mm")));
+        ui->tableWidget->setItem(row_i, 7, new QTableWidgetItem(temp_str));
+        ui->tableWidget->setItem(row_i, 8, new QTableWidgetItem(y_sq.value(8).toDateTime().toString("yyyy-MM-dd hh:ss:mm")));
         row_i++;
     }
     ui->tableWidget->resizeColumnsToContents(); //设置自动列宽，setColumnWidth(3,200)设置固定列宽

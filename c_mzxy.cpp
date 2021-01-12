@@ -56,7 +56,7 @@ void c_mzxy::on_pushButton_clicked()
     eDay_str = QDate(ui->calendarWidget_2->selectedDate().addDays(1)).toString(Qt::ISODate);
     xst0->iniDB();
     //sql_str = xst0->openSqlFile("C:\\Qt\\GP\\c_mzxy.sql");
-    sql_str = xst0->openSqlFile(QCoreApplication::applicationDirPath() + "\\c_mzxy.sql");
+    sql_str = xst0->openSqlFile(QCoreApplication::applicationDirPath() + "\\sql\\c_mzxy.sql");
 
     if(ui->comboBox->currentIndex()){
         switch(ui->comboBox->currentIndex()){

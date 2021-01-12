@@ -42,7 +42,7 @@
        <item row="9" column="5">
         <widget class="QLineEdit" name="lineEdit_9">
          <property name="text">
-          <string/>
+          <string>刘锦杳</string>
          </property>
         </widget>
        </item>
@@ -381,12 +381,15 @@
          </property>
         </widget>
        </item>
-       <item row="8" column="5">
-        <widget class="QPushButton" name="pushButton_2">
+       <item row="8" column="4">
+        <widget class="QLabel" name="label_6">
          <property name="text">
-          <string>点我获得1元奖金</string>
+          <string>停止日期</string>
          </property>
         </widget>
+       </item>
+       <item row="8" column="5">
+        <widget class="QDateEdit" name="dateEdit"/>
        </item>
       </layout>
      </item>

@@ -17,9 +17,12 @@ b_bagd::b_bagd(QWidget *parent) :
     ui->setupUi(this);
     ui->tableWidget->resizeColumnsToContents();//设置自动列宽，setColumnWidth(3,200)设置固定列宽
     ui->tableWidget->setSelectionMode(QAbstractItemView::SingleSelection);//只能选中单个
+    ui->tableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
 
     ui->dateEdit->setDate(QDate::currentDate().addDays(-31));
     ui->dateEdit_2->setDate(QDate::currentDate());
+
+    isIni_b = true;
 
     on_pushButton_clicked();
 }
@@ -42,7 +45,11 @@ void b_bagd::on_pushButton_5_clicked()//查询
     zyh_str = ui->lineEdit_2->text();
     recTime_str = QDateTime(ui->calendarWidget->selectedDate(), QTime().currentTime()).toString("yyyy-MM-dd HH:mm:ss");
 
-    if(xst->ifIni_b)xst->iniDB();//初始化数据库工具
+    if(isIni_b){
+        xst->iniDB();
+        //qDebug() << xst->isDBopen;
+        isIni_b = false;
+    }
     sql_str = xsql_str;//改变查询方式
     if (ks_str != "全部") {
         sql_str.append("OutDeptment = ").append("\'").append(ks_str).append("\'").append(" AND ");
@@ -55,7 +62,20 @@ void b_bagd::on_pushButton_5_clicked()//查询
     if (zyh_str.length() > 0 && zyh_str.length() <= 10) {
         sql_str.append("AND CaseNo = ").append("\'").append(zyh_str).append("\'");
     }
+    //qDebug() << sql_str;
     w_sq = xst->getData(sql_str);
+    //QString s = w_sq.lastError().text();
+    //qDebug() << w_sq.lastError().text();
+    //ui->lineEdit->setText(w_sq.lastError().text());
+    //qDebug() << sql_str;
+    /*x_file_tool *xft2;
+    xft2 = new x_file_tool();
+    qDebug() << xft2->setPath("");
+    xft2->setPath(this, QString("").append(QDate::currentDate().toString("yyyy-MM-dd")).append(".txt"));
+    qDebug() << xft2->filePath_str;
+    xft2->writeFile(w_sq.lastError().text());
+    delete xft2;*/
+
     ui->tableWidget->setRowCount(w_sq.numRowsAffected() + 1);
     while (w_sq.next()) {
         for (int i = 0; i < 3; i++) {

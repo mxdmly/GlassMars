@@ -1,5 +1,6 @@
 #ifndef B_CXSFZ_H
 #include <x_sql_tool.h>
+#include <QValidator>
 #define B_CXSFZ_H
 
 #include <QDialog>

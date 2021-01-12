@@ -4,7 +4,7 @@ QTcpSocket *qts1;
 x_net_tool::x_net_tool(QObject *parent) : QObject(parent)
 {
     qts1 = new QTcpSocket();
-    qts1->connectToHost("198.8.8.12", 8192);
+    qts1->connectToHost("127.0.0.1", 8190);
     connect(qts1, &QTcpSocket::readyRead, this, &x_net_tool::onReadData);
 }
 x_net_tool::~x_net_tool(){

@@ -50,13 +50,6 @@
             <item row="1" column="1">
              <widget class="QLineEdit" name="lineEdit_2"/>
             </item>
-            <item row="0" column="1" colspan="3">
-             <widget class="QLineEdit" name="lineEdit">
-              <property name="clearButtonEnabled">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
             <item row="0" column="0">
              <widget class="QLabel" name="label">
               <property name="text">
@@ -86,6 +79,23 @@
                <string>参保类别</string>
               </property>
              </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QLineEdit" name="lineEdit">
+              <property name="clearButtonEnabled">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="2">
+             <widget class="QLabel" name="label_3">
+              <property name="text">
+               <string>参保状态</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="3">
+             <widget class="QLineEdit" name="lineEdit_6"/>
             </item>
            </layout>
           </item>
@@ -170,6 +180,9 @@
                 <font>
                  <pointsize>12</pointsize>
                 </font>
+               </property>
+               <property name="contextMenuPolicy">
+                <enum>Qt::ActionsContextMenu</enum>
                </property>
               </widget>
              </item>

@@ -1,4 +1,4 @@
-#include "b_cxsfz.h"
+﻿#include "b_cxsfz.h"
 #include "ui_b_cxsfz.h"
 
 QSqlQuery w_sq1;
@@ -21,7 +21,7 @@ b_cxsfz::~b_cxsfz()
 
 void b_cxsfz::on_pushButton_clicked()
 {
-    QString sql_str = xst1->openSqlFile(QCoreApplication::applicationDirPath() + "\\c_cxsfz.sql");
+    QString sql_str = xst1->openSqlFile(QCoreApplication::applicationDirPath() + "\\sql\\c_cxsfz.sql");
     sql_str.append(ui->lineEdit->text()).append("\'");
     xst1->iniDB();
     w_sq1 = xst1->getData(sql_str);

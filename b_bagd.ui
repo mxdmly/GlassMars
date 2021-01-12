@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1100</width>
+    <width>1102</width>
     <height>500</height>
    </rect>
   </property>
@@ -144,9 +144,19 @@
               <height>0</height>
              </size>
             </property>
+            <property name="font">
+             <font>
+              <pointsize>10</pointsize>
+             </font>
+            </property>
             <item>
              <property name="text">
               <string>全部</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>ICU</string>
              </property>
             </item>
             <item>
@@ -177,6 +187,11 @@
             <item>
              <property name="text">
               <string>妇产科</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>儿科</string>
              </property>
             </item>
             <item>
